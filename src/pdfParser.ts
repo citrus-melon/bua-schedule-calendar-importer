@@ -1,23 +1,6 @@
 import * as pdfjs from "pdfjs-dist";
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
-
-enum DayOfWeek {
-  Monday = 1,
-  Tuesday = 2,
-  Wednesday = 3,
-  Thursday = 4,
-  Friday = 5,
-}
-
-interface CourseEvent {
-  pdfIndex: number;
-  time: string;
-  day: DayOfWeek;
-  title: string;
-  block: string;
-  teacher?: string;
-  room?: string;
-}
+import { DayOfWeek, type CourseEvent } from "./types";
 
 const COLUMNS = [
   {day: DayOfWeek.Monday, x: 38},
@@ -31,7 +14,7 @@ const timeStringRegex = /^\d{1,2}:\d{2} - \d{1,2}:\d{2}$/; // 8:00 - 9:30
 const roomStringRegex = /^[A-Z0-9]+$/; // 205, ASM
 const teacherStringRegex = /^(?:Dr|Mr|Mrs|Ms|Mx)\. /; // Dr. Jane Doe
 
-export const getRelevantContent = async (file: File) => {
+const getRelevantContent = async (file: File) => {
   const buffer = await file.arrayBuffer();
   const document = await pdfjs.getDocument(buffer).promise;
   const page = await document.getPage(1);
