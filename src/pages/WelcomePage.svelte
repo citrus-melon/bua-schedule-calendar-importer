@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
   import PdfUpload from "../PdfUpload.svelte";
 </script>
 
 <div class="welcome-page">
   <main class="content">
     <div>
-      <span class="step-count">Step 1 of 4</span>
+      <div class="step-count">Step 1 of 4</div>
       <h1>Welcome</h1>
       <p>Upload your PDF schedule to get started!</p>
       <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
