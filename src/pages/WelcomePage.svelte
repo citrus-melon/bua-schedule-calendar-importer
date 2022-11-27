@@ -9,7 +9,7 @@
       <h1>Welcome</h1>
       <p>Upload your PDF schedule to get started!</p>
       <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
-      <PdfUpload />
+      <PdfUpload on:upload/>
     </div>
   </main>
   <footer class="footer">

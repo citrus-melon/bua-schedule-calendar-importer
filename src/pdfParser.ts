@@ -30,7 +30,7 @@ const getRelevantContent = async (file: File) => {
   )
 }
 
-const parse = async (file: File) => {
+const parsePDF = async (file: File) => {
   const pdfContent = await getRelevantContent(file);
   const consumedItems: boolean[] = [];
   const courses: CourseEvent[] = [];
@@ -93,4 +93,4 @@ const parse = async (file: File) => {
   return courses;
 };
 
-export default parse;
+export default parsePDF;
