@@ -1,5 +1,6 @@
 <script lang="ts">
-  import ErrorPage from "./pages/ErrorPage.svelte";
+  import EditInfoPage from "./pages/EditInfoPage.svelte";
+import ErrorPage from "./pages/ErrorPage.svelte";
   import WelcomePage from "./pages/WelcomePage.svelte";
   import parsePDF from "./pdfParser";
   import type { CourseEvent } from "./types";
@@ -8,11 +9,11 @@
     Welcome,
     PdfLoading,
     PdfError,
-    EditCourses,
+    EditInfo,
   };
 
   let courseEvents: CourseEvent[] = [];
-  let currentStep: Step = Step.Welcome;
+  let currentStep: Step = Step.EditInfo;
 
   const handleUpload = async (e: CustomEvent<File>) => {
     const file = e.detail;
@@ -22,7 +23,7 @@
         throw new Error("No course events found in PDF");
       }
       
-      currentStep = Step.EditCourses;
+      currentStep = Step.EditInfo;
     } catch (error) {
       currentStep = Step.PdfError;
       console.error(error);
@@ -40,7 +41,6 @@
 </ErrorPage>
 {/if}
 
-{#if currentStep === Step.EditCourses}
-<h1>Placeholder</h1>
-<p>You would be able to manually edit your schedule info here!</p>
+{#if currentStep === Step.EditInfo}
+<EditInfoPage on:backButton={() => currentStep = Step.Welcome} />
 {/if}
