@@ -15,3 +15,5 @@ export interface CourseEvent {
   teacher?: string;
   room?: string;
 }
+
+export type CalendarLike = Omit<gapi.client.calendar.Calendar, 'kind'>;

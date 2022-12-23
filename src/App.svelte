@@ -10,10 +10,10 @@
   import UploadPage from "./pages/UploadPage.svelte";
   import { onGisLoaded, onGapiLoaded } from "./google";
   import type { CourseEvent } from "./types";
+  import SelectCalendarPage from "./pages/SelectCalendarPage.svelte";
 
   enum Step {
     Upload,
-    PdfLoading,
     PdfError,
     ConfirmInfo,
     GoogleAuth,
@@ -53,5 +53,8 @@
 {/if}
 
 {#if currentStep === Step.SelectCalendar}
-<p>TODO: Select Calendar Page</p>
+<SelectCalendarPage
+  on:back={() => currentStep = Step.GoogleAuth}
+  on:select={() => currentStep = Step.SelectCalendar}
+/>
 {/if}
