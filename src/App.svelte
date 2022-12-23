@@ -1,5 +1,5 @@
 <script lang="ts">
-  import EditInfoPage from "./pages/EditInfoPage.svelte";
+  import ConfirmInfoPage from "./pages/ConfirmInfoPage.svelte";
 import ErrorPage from "./pages/ErrorPage.svelte";
   import WelcomePage from "./pages/WelcomePage.svelte";
   import parsePDF from "./pdfParser";
@@ -9,11 +9,11 @@ import ErrorPage from "./pages/ErrorPage.svelte";
     Welcome,
     PdfLoading,
     PdfError,
-    EditInfo,
+    ConfirmInfo,
   };
 
   let courseEvents: CourseEvent[] = [];
-  let currentStep: Step = Step.EditInfo;
+  let currentStep: Step = Step.Welcome;
 
   const handleUpload = async (e: CustomEvent<File>) => {
     const file = e.detail;
@@ -23,7 +23,7 @@ import ErrorPage from "./pages/ErrorPage.svelte";
         throw new Error("No course events found in PDF");
       }
       
-      currentStep = Step.EditInfo;
+      currentStep = Step.ConfirmInfo;
     } catch (error) {
       currentStep = Step.PdfError;
       console.error(error);
@@ -41,6 +41,6 @@ import ErrorPage from "./pages/ErrorPage.svelte";
 </ErrorPage>
 {/if}
 
-{#if currentStep === Step.EditInfo}
-<EditInfoPage on:backButton={() => currentStep = Step.Welcome} />
+{#if currentStep === Step.ConfirmInfo}
+<ConfirmInfoPage bind:courseEvents={courseEvents} on:backButton={() => currentStep = Step.Welcome} />
 {/if}

@@ -25,12 +25,4 @@
     justify-content: center;
     text-align: center;
   }
-
-  button {
-    padding: 0.5em 1em;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    font-size: 1em;
-    background: none;
-  }
 </style>

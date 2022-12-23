@@ -20,7 +20,7 @@
 
 <style>
   .step-display {
-    color: var(--gray);
+    color: var(--font-gray);
     font-size: 1.25em;
     display: inline-flex;
     align-items: center;
