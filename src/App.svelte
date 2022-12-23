@@ -1,8 +1,15 @@
+<svelte:head>
+  <script src="https://apis.google.com/js/api.js" on:load={onGapiLoaded}></script>
+  <script src="https://accounts.google.com/gsi/client" on:load={onGisLoaded}></script>
+</svelte:head>
+
 <script lang="ts">
   import ConfirmInfoPage from "./pages/ConfirmInfoPage.svelte";
-import ErrorPage from "./pages/ErrorPage.svelte";
+  import ErrorPage from "./pages/ErrorPage.svelte";
+  import GoogleAuthPage from "./pages/GoogleAuthPage.svelte";
   import WelcomePage from "./pages/WelcomePage.svelte";
   import parsePDF from "./pdfParser";
+  import { onGisLoaded, onGapiLoaded } from "./google";
   import type { CourseEvent } from "./types";
 
   enum Step {
@@ -10,6 +17,8 @@ import ErrorPage from "./pages/ErrorPage.svelte";
     PdfLoading,
     PdfError,
     ConfirmInfo,
+    GoogleAuth,
+    SelectCalendar,
   };
 
   let courseEvents: CourseEvent[] = [];
@@ -42,5 +51,20 @@ import ErrorPage from "./pages/ErrorPage.svelte";
 {/if}
 
 {#if currentStep === Step.ConfirmInfo}
-<ConfirmInfoPage bind:courseEvents={courseEvents} on:back={() => currentStep = Step.Welcome} />
+<ConfirmInfoPage
+  bind:courseEvents={courseEvents}
+  on:back={() => currentStep = Step.Welcome}
+  on:next={() => currentStep = Step.GoogleAuth}
+/>
+{/if}
+
+{#if currentStep === Step.GoogleAuth}
+<GoogleAuthPage
+  on:back={() => currentStep = Step.ConfirmInfo}
+  on:next={() => currentStep = Step.SelectCalendar}
+/>
+{/if}
+
+{#if currentStep === Step.SelectCalendar}
+<p>TODO: Select Calendar Page</p>
 {/if}
