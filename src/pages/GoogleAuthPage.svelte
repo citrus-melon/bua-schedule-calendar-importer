@@ -1,7 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
+    import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
-  import { tokenClient } from "../google";
+  import { gapiReady, gisReady, tokenClient } from "../google";
 
   const dispatch = createEventDispatcher<{auth}>();
 
@@ -13,6 +14,7 @@
 </script>
 
 <main class="google-auth-page">
+  {#if !$gisReady}<LoadingOverlay />{/if}
   <div>
     <StepDisplay currentStep={3} showBackButton={true} on:back />
     <h1>Grant Permission</h1>
