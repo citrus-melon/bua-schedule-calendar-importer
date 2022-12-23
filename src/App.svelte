@@ -7,13 +7,12 @@
   import ConfirmInfoPage from "./pages/ConfirmInfoPage.svelte";
   import ErrorPage from "./pages/ErrorPage.svelte";
   import GoogleAuthPage from "./pages/GoogleAuthPage.svelte";
-  import WelcomePage from "./pages/WelcomePage.svelte";
-  import parsePDF from "./pdfParser";
+  import UploadPage from "./pages/UploadPage.svelte";
   import { onGisLoaded, onGapiLoaded } from "./google";
   import type { CourseEvent } from "./types";
 
   enum Step {
-    Welcome,
+    Upload,
     PdfLoading,
     PdfError,
     ConfirmInfo,
@@ -22,30 +21,18 @@
   };
 
   let courseEvents: CourseEvent[] = [];
-  let currentStep: Step = Step.Welcome;
-
-  const handleUpload = async (e: CustomEvent<File>) => {
-    const file = e.detail;
-    try {
-      courseEvents = await parsePDF(file);
-      if (courseEvents.length === 0) {
-        throw new Error("No course events found in PDF");
-      }
-      
-      currentStep = Step.ConfirmInfo;
-    } catch (error) {
-      currentStep = Step.PdfError;
-      console.error(error);
-    }
-  };
+  let currentStep: Step = Step.Upload;
 </script>
 
-{#if currentStep === Step.Welcome}
-<WelcomePage on:upload={handleUpload} />
+{#if currentStep === Step.Upload}
+<UploadPage
+  on:upload={(e) => courseEvents = e.detail}
+  on:error={() => currentStep = Step.PdfError}
+/>
 {/if}
 
 {#if currentStep === Step.PdfError}
-<ErrorPage title="Something went wrong" on:back={() => currentStep = Step.Welcome}>
+<ErrorPage title="Something went wrong" on:back={() => currentStep = Step.Upload}>
   <p>Are you sure that's a BUA PDF schedule?</p>
 </ErrorPage>
 {/if}
@@ -53,7 +40,7 @@
 {#if currentStep === Step.ConfirmInfo}
 <ConfirmInfoPage
   bind:courseEvents={courseEvents}
-  on:back={() => currentStep = Step.Welcome}
+  on:back={() => currentStep = Step.Upload}
   on:next={() => currentStep = Step.GoogleAuth}
 />
 {/if}

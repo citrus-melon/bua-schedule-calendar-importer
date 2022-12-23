@@ -1,6 +1,25 @@
 <script lang="ts">
 import StepDisplay from "../components/StepDisplay.svelte";
 import PdfUpload from "../components/PdfUpload.svelte";
+import { createEventDispatcher } from "svelte";
+import parsePDF from "../pdfParser";
+import type { CourseEvent } from "../types";
+
+const dispatch = createEventDispatcher<{next: CourseEvent[], error: Error}>();
+
+const onUpload = async (e: CustomEvent<File>) => {
+  const file = e.detail;
+  try {
+    const courseEvents = await parsePDF(file);
+    if (courseEvents.length === 0) {
+      throw new Error("No course events found in PDF");
+    }
+    dispatch("next", courseEvents);
+  } catch (error) {
+    console.error(error);
+    dispatch("error", error);
+  }
+};
 </script>
 
 <div class="welcome-page">
@@ -10,7 +29,7 @@ import PdfUpload from "../components/PdfUpload.svelte";
       <h1>Welcome</h1>
       <p>Upload your PDF schedule to get started!</p>
       <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
-      <PdfUpload on:upload/>
+      <PdfUpload on:upload={onUpload} />
     </div>
   </main>
   <footer class="footer">
