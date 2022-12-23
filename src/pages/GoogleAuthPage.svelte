@@ -2,15 +2,17 @@
   import { createEventDispatcher, onMount } from "svelte";
     import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
-  import { gapiReady, gisReady, tokenClient } from "../google";
+  import { gisReady, tokenClient } from "../google";
 
   const dispatch = createEventDispatcher<{auth}>();
 
-  onMount(() => {
+  const requestAccessToken = () => {
     //@ts-ignore
     tokenClient.callback = () => dispatch("auth");
     tokenClient.requestAccessToken();
-  });
+  }
+
+  onMount(requestAccessToken);
 </script>
 
 <main class="google-auth-page">
@@ -20,7 +22,7 @@
     <h1>Grant Permission</h1>
     <p>We need permission to add events to your Google Calendar.</p>
     <p>Look for a Google popup and follow the instructions there!</p>
-    <button type="button" on:click={() => tokenClient.requestAccessToken()}>Try Again</button>
+    <button type="button" on:click={requestAccessToken}>Try Again</button>
   </div>
 </main>
 
