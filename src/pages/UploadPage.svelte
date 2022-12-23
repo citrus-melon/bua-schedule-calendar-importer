@@ -4,10 +4,14 @@ import PdfUpload from "../components/PdfUpload.svelte";
 import { createEventDispatcher } from "svelte";
 import parsePDF from "../pdfParser";
 import type { CourseEvent } from "../types";
+import LoadingOverlay from "../components/LoadingOverlay.svelte";
 
 const dispatch = createEventDispatcher<{parse: CourseEvent[], error: Error}>();
 
+let loading = false;
+
 const onUpload = async (e: CustomEvent<File>) => {
+  loading = true;
   const file = e.detail;
   try {
     const courseEvents = await parsePDF(file);
@@ -35,6 +39,7 @@ const onUpload = async (e: CustomEvent<File>) => {
   <footer class="footer">
     <p>BUA Schedule → Google Calendar Importer by <a href="https://citrusmelon.dev">Maxwell Yu</a></p>
   </footer>
+  {#if loading}<LoadingOverlay />{/if}
 </div>
 
 <style>
