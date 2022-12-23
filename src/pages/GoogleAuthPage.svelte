@@ -3,11 +3,11 @@
   import StepDisplay from "../components/StepDisplay.svelte";
   import { tokenClient } from "../google";
 
-  const dispatch = createEventDispatcher<{next}>();
+  const dispatch = createEventDispatcher<{auth}>();
 
   onMount(() => {
     //@ts-ignore
-    tokenClient.callback = () => dispatch("next");
+    tokenClient.callback = () => dispatch("auth");
     tokenClient.requestAccessToken();
   });
 </script>

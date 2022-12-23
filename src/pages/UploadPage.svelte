@@ -5,7 +5,7 @@ import { createEventDispatcher } from "svelte";
 import parsePDF from "../pdfParser";
 import type { CourseEvent } from "../types";
 
-const dispatch = createEventDispatcher<{next: CourseEvent[], error: Error}>();
+const dispatch = createEventDispatcher<{parse: CourseEvent[], error: Error}>();
 
 const onUpload = async (e: CustomEvent<File>) => {
   const file = e.detail;
@@ -14,7 +14,7 @@ const onUpload = async (e: CustomEvent<File>) => {
     if (courseEvents.length === 0) {
       throw new Error("No course events found in PDF");
     }
-    dispatch("next", courseEvents);
+    dispatch("parse", courseEvents);
   } catch (error) {
     console.error(error);
     dispatch("error", error);

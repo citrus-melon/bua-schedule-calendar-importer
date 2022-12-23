@@ -26,7 +26,7 @@
 
 {#if currentStep === Step.Upload}
 <UploadPage
-  on:upload={(e) => courseEvents = e.detail}
+  on:parse={(e) => {courseEvents = e.detail; currentStep = Step.ConfirmInfo}}
   on:error={() => currentStep = Step.PdfError}
 />
 {/if}
@@ -41,14 +41,14 @@
 <ConfirmInfoPage
   bind:courseEvents={courseEvents}
   on:back={() => currentStep = Step.Upload}
-  on:next={() => currentStep = Step.GoogleAuth}
+  on:confirm={() => currentStep = Step.GoogleAuth}
 />
 {/if}
 
 {#if currentStep === Step.GoogleAuth}
 <GoogleAuthPage
   on:back={() => currentStep = Step.ConfirmInfo}
-  on:next={() => currentStep = Step.SelectCalendar}
+  on:auth={() => currentStep = Step.SelectCalendar}
 />
 {/if}
 

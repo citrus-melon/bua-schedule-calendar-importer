@@ -4,7 +4,7 @@
   import { DayOfWeek, type CourseEvent } from "../types";
 
   export let courseEvents: CourseEvent[];
-  const dispatch = createEventDispatcher<{next}>();
+  const dispatch = createEventDispatcher<{confirm}>();
 </script>
 
 <div class="confirm-info-page">
@@ -42,7 +42,7 @@
     </main>
   </div>
   <div class="next-footer">
-    <button class="primary" on:click={() => {dispatch("next")}}>Next</button>
+    <button class="primary" on:click={() => {dispatch("confirm")}}>Next</button>
   </div>
 </div>
 
