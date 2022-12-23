@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher<{backButton}>();
+  const dispatch = createEventDispatcher<{back}>();
 
   export let title: string = "Something went wrong!";
   export let buttonLabel: string = "Back";
@@ -13,7 +13,7 @@
     <h1>{title}</h1>
     <slot></slot>
     <p>Let me know if you found a bug!</p>
-    <button type="button" on:click={() => dispatch("backButton")}>{buttonLabel}</button>
+    <button type="button" on:click={() => dispatch("back")}>{buttonLabel}</button>
   </div>
 </main>
 

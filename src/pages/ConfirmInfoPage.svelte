@@ -10,7 +10,7 @@
 <div class="confirm-info-page">
   <div class="scrollable">
     <header>
-      <StepDisplay currentStep={2} showBackButton={true} on:backButton />
+      <StepDisplay currentStep={2} showBackButton={true} on:back />
       <h1>Confirm Your Info</h1>
       <p>Make sure everything looks right!</p>
     </header>

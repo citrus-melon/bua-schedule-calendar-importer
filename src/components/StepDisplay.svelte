@@ -5,12 +5,12 @@
   export let stepCount = 4;
   export let showBackButton = false;
 
-  const dispatch = createEventDispatcher<{backButton}>();
+  const dispatch = createEventDispatcher<{back}>();
 </script>
 
 <div class="step-display">
   {#if showBackButton}
-    <button type="button" on:click={() => dispatch("backButton")} class="back-button">
+    <button type="button" on:click={() => dispatch("back")} class="back-button">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left" aria-hidden="true" focusable="false"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
       <span class="visually-hidden">Back</span>
     </button>

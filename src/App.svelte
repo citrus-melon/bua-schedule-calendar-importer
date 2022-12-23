@@ -36,11 +36,11 @@ import ErrorPage from "./pages/ErrorPage.svelte";
 {/if}
 
 {#if currentStep === Step.PdfError}
-<ErrorPage title="Something went wrong" on:backButton={() => currentStep = Step.Welcome}>
+<ErrorPage title="Something went wrong" on:back={() => currentStep = Step.Welcome}>
   <p>Are you sure that's a BUA PDF schedule?</p>
 </ErrorPage>
 {/if}
 
 {#if currentStep === Step.ConfirmInfo}
-<ConfirmInfoPage bind:courseEvents={courseEvents} on:backButton={() => currentStep = Step.Welcome} />
+<ConfirmInfoPage bind:courseEvents={courseEvents} on:back={() => currentStep = Step.Welcome} />
 {/if}
