@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from "svelte";
     import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
-  import { gisReady, tokenClient } from "../google";
+  import { gisReady, tokenClient } from "../googleLibraries.svelte";
 
   const dispatch = createEventDispatcher<{auth}>();
 

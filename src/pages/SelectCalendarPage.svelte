@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
     import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
-  import { gapiReady } from "../google";
+  import { gapiReady } from "../googleLibraries.svelte";
     import type { CalendarLike } from "../types";
 
   const dispatch = createEventDispatcher<{select: CalendarLike}>();

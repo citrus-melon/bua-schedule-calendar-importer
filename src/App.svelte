@@ -1,18 +1,15 @@
-<svelte:head>
-  <script src="https://apis.google.com/js/api.js" on:load={onGapiLoaded}></script>
-  <script src="https://accounts.google.com/gsi/client" on:load={onGisLoaded}></script>
-</svelte:head>
+<GoogleLibraries />
 
 <script lang="ts">
   import ConfirmInfoPage from "./pages/ConfirmInfoPage.svelte";
   import ErrorPage from "./pages/ErrorPage.svelte";
   import GoogleAuthPage from "./pages/GoogleAuthPage.svelte";
   import UploadPage from "./pages/UploadPage.svelte";
-  import { onGisLoaded, onGapiLoaded } from "./google";
   import type { CalendarLike, CourseEvent } from "./types";
   import SelectCalendarPage from "./pages/SelectCalendarPage.svelte";
     import ImportPage from "./pages/ImportPage.svelte";
     import MessagePage from "./pages/MessagePage.svelte";
+    import GoogleLibraries from "./googleLibraries.svelte";
 
   enum Step {
     Upload,
