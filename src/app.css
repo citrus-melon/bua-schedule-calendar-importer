@@ -70,6 +70,10 @@ input {
   font-size: 1em;
 }
 
+input:invalid {
+  border-color: #FF0000;
+}
+
 h1 {
   font-size: 4em;
   font-weight: 700;

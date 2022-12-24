@@ -39,7 +39,7 @@
 </script>
 
 <main class="select-calendar-page">
-  <StepDisplay currentStep={4} showBackButton={true} on:back />
+  <StepDisplay currentStep={5} showBackButton={true} on:back />
   <h1>Select a Calendar</h1>
   <p>Which calendar would you like your classes added to?</p>
   <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>

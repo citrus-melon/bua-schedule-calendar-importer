@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
 
   export let currentStep = 0;
-  export let stepCount = 4;
+  export let stepCount = 5;
   export let showBackButton = false;
 
   const dispatch = createEventDispatcher<{back}>();

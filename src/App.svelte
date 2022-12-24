@@ -7,14 +7,16 @@
   import UploadPage from "./pages/UploadPage.svelte";
   import type { CalendarLike, CourseEvent } from "./types";
   import SelectCalendarPage from "./pages/SelectCalendarPage.svelte";
-    import ImportPage from "./pages/ImportPage.svelte";
-    import MessagePage from "./pages/MessagePage.svelte";
-    import GoogleLibraries from "./googleLibraries.svelte";
+  import ImportPage from "./pages/ImportPage.svelte";
+  import MessagePage from "./pages/MessagePage.svelte";
+  import GoogleLibraries from "./googleLibraries.svelte";
+  import DateRangePage from "./pages/DateRangePage.svelte";
 
   enum Step {
     Upload,
     PdfError,
     ConfirmInfo,
+    SetDateRange,
     GoogleAuth,
     SelectCalendar,
     Import,
@@ -24,6 +26,7 @@
 
   let courseEvents: CourseEvent[] = [];
   let currentStep: Step = Step.Upload;
+  let dateRange: {start: Date, end: Date};
   let calendar: CalendarLike;
 </script>
 
@@ -44,13 +47,20 @@
 <ConfirmInfoPage
   {courseEvents}
   on:back={() => currentStep = Step.Upload}
-  on:confirm={() => currentStep = Step.GoogleAuth}
+  on:confirm={() => currentStep = Step.SetDateRange}
+/>
+{/if}
+
+{#if currentStep === Step.SetDateRange}
+<DateRangePage
+  on:back={() => currentStep = Step.ConfirmInfo}
+  on:set={(e) => {dateRange = e.detail; currentStep = Step.GoogleAuth}}
 />
 {/if}
 
 {#if currentStep === Step.GoogleAuth}
 <GoogleAuthPage
-  on:back={() => currentStep = Step.ConfirmInfo}
+  on:back={() => currentStep = Step.SetDateRange}
   on:auth={() => currentStep = Step.SelectCalendar}
 />
 {/if}

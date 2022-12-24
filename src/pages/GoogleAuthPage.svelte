@@ -18,7 +18,7 @@
 <main class="google-auth-page">
   {#if !$gisReady}<LoadingOverlay />{/if}
   <div>
-    <StepDisplay currentStep={3} showBackButton={true} on:back />
+    <StepDisplay currentStep={4} showBackButton={true} on:back />
     <h1>Grant Permission</h1>
     <p>We need permission to add events to your Google Calendar.</p>
     <p>Look for a Google popup and follow the instructions there!</p>
