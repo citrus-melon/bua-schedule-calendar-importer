@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  outline-color: var(--accent);
 }
 
 html, body, #app {
@@ -38,9 +39,10 @@ a {
   color: var(--accent);
   text-decoration: none;
   background-color: transparent;
+  transition: background-color 0.2s;
 }
 
-a:hover {
+a:hover, a:focus {
   background-color: var(--accent-transparent);
 }
 
@@ -63,6 +65,11 @@ button.primary, .button.primary {
   color: #FFFFFF;
 }
 
+button:hover, .button:hover, button:focus, .button:focus {
+  background: none;
+  color: var(--accent);
+}
+
 input {
   padding: 0.5em;
   border: 1px solid var(--gray);
@@ -72,6 +79,16 @@ input {
 
 input:invalid {
   border-color: #FF0000;
+}
+
+button, .button, input {
+  outline: 2px solid transparent;
+  outline-offset: -1px;
+  transition: outline-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+button:hover, .button:hover, button:focus, .button:focus, input:focus {
+  outline-color: var(--accent);
 }
 
 h1 {

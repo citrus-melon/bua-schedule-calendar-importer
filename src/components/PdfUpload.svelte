@@ -40,10 +40,8 @@
   
 <div class="box">
   <h2>Drop your PDF here!</h2>
-  <label class="button">
-    <input type="file" accept=".pdf" class="visually-hidden" bind:files>
-    Or Browse
-  </label>
+  <input type="file" accept=".pdf" class="visually-hidden" id="file" bind:files>
+  <label class="button" for="file">Or Browse</label>
 </div>
 
 <svelte:window
@@ -79,5 +77,10 @@
     background: var(--accent);
     color: white;
     opacity: 80%;
+  }
+
+  input:focus + label {
+    outline-color: var(--accent);
+    color: var(--accent);
   }
 </style>

@@ -35,6 +35,10 @@
     margin-right: 0.5em;
   }
 
+  .back-button:hover {
+    outline-color: transparent;
+  }
+
   .back-button svg {
     display: block;
   }
