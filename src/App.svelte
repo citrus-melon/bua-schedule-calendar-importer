@@ -11,6 +11,7 @@
   import MessagePage from "./pages/MessagePage.svelte";
   import GoogleLibraries from "./googleLibraries.svelte";
   import DateRangePage from "./pages/DateRangePage.svelte";
+  import type { Interval } from "luxon";
 
   enum Step {
     Upload,
@@ -26,7 +27,7 @@
 
   let courseEvents: CourseEvent[] = [];
   let currentStep: Step = Step.Upload;
-  let dateRange: {start: Date, end: Date};
+  let dateRange: Interval;
   let calendar: CalendarLike;
 </script>
 

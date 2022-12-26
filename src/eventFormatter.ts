@@ -1,6 +1,7 @@
+import type { Interval } from "luxon";
 import type { CourseEvent } from "./types";
 
-const formatEvent = (event: CourseEvent, dateRange: {start: Date, end: Date}): gapi.client.calendar.EventInput => {
+const formatEvent = (event: CourseEvent, dateRange: Interval): gapi.client.calendar.EventInput => {
     const start = new Date(dateRange.start);
     while (start.getDay() !== event.day) start.setDate(start.getDate() + 1);
     start.setHours(event.startTime.hours);

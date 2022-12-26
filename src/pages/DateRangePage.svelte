@@ -1,25 +1,29 @@
 <script lang="ts">
+  import { DateTime, Interval } from "luxon";
   import { createEventDispatcher } from "svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
   import validityMessage from "../customValidity";
-  const dispatch = createEventDispatcher<{set: {start: Date, end: Date}}>();
+
+  const dispatch = createEventDispatcher<{set: Interval}>();
 
   let startString = import.meta.env.VITE_DEFAULT_START_DATE;
   let endString = import.meta.env.VITE_DEFAULT_END_DATE;
 
-  $: start = new Date(startString);
-  $: end = new Date(endString);
+  $: start = DateTime.fromISO(startString);
+  $: end = DateTime.fromISO(endString);
 
-  const getValidityMsg = (date: Date) => {
-    if (isNaN(date.getTime())) return "Please enter a valid date";
+  
+
+  const getValidityMsg = (date: DateTime) => {
+    if (!date.isValid) return "Please enter a valid date";
     else if (start > end) return "Start date must be before end date";
     else return "";
   }
 
   const onSubmit = () => {
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) alert("Please enter valid dates");
+    if (!start.isValid || !end.isValid) alert("Please enter valid dates");
     else if (start > end) alert("Start date must be before end date");
-    else dispatch("set", {start, end});
+    else dispatch("set", Interval.fromDateTimes(start, end));
   }
 </script>
 
