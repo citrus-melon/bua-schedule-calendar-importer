@@ -32,7 +32,7 @@
             <td>{courseEvent.title}</td>
             <td>{DayOfWeek[courseEvent.day]}</td>
             <td>{courseEvent.block}</td>
-            <td>{courseEvent.time}</td>
+            <td>{courseEvent.startTime.toString()} - {courseEvent.endTime.toString()}</td>
             <td>{courseEvent.room ?? "N/A"}</td>
             <td>{courseEvent.teacher ?? "N/A"}</td>
           </tr>

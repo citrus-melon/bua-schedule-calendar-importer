@@ -1,6 +1,6 @@
 import * as pdfjs from "pdfjs-dist";
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
-import { DayOfWeek, type CourseEvent } from "./types";
+import { DayOfWeek, Time, type CourseEvent } from "./types";
 
 const COLUMNS = [
   {day: DayOfWeek.Monday, x: 38},
@@ -10,9 +10,11 @@ const COLUMNS = [
   {day: DayOfWeek.Friday, x: 471},
 ].reverse();
 
-const timeStringRegex = /^\d{1,2}:\d{2} - \d{1,2}:\d{2}$/; // 8:00 - 9:30
+const timeStringRegex = /^(\d{1,2}):(\d{2}) - (\d{1,2}):(\d{2})$/; // 8:00 - 9:30
 const roomStringRegex = /^[A-Z0-9]+$/; // 205, ASM
 const teacherStringRegex = /^(?:Dr|Mr|Mrs|Ms|Mx)\. /; // Dr. Jane Doe
+
+type pdfCourseEvent = CourseEvent & { pdfIndex: number };
 
 const getRelevantContent = async (file: File) => {
   const buffer = await file.arrayBuffer();
@@ -33,15 +35,20 @@ const getRelevantContent = async (file: File) => {
 const parsePDF = async (file: File) => {
   const pdfContent = await getRelevantContent(file);
   const consumedItems: boolean[] = [];
-  const courses: CourseEvent[] = [];
+  const courses: pdfCourseEvent[] = [];
 
   // Time, day, block, title
   for (let i = 0; i < pdfContent.length; i++) {
     const item = pdfContent[i];
 
-    if (timeStringRegex.test(item.str)) {
+    const timeRegexResult = timeStringRegex.exec(item.str);
+    if (timeRegexResult) {
       consumedItems[i] = true;
-      const time = item.str;
+
+      let startTime = new Time(Number(timeRegexResult[1]), Number(timeRegexResult[2]));
+      if (startTime.hours < 6) startTime = new Time(startTime.hours + 12, startTime.minutes);
+      let endTime = new Time(Number(timeRegexResult[3]), Number(timeRegexResult[4]));
+      if (endTime.hours < 6) endTime = new Time(endTime.hours + 12, endTime.minutes);
 
       const day = COLUMNS.find(
         (column) => column.x <= item.transform[4]
@@ -53,7 +60,7 @@ const parsePDF = async (file: File) => {
       const title = pdfContent[i+2].str;
       consumedItems[i+2] = true;
 
-      courses.push({ pdfIndex: i, time, day, block, title });
+      courses.push({ pdfIndex: i, startTime, endTime, day, block, title });
     }
   }
 

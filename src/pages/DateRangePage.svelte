@@ -27,15 +27,17 @@
   <div>
     <StepDisplay currentStep={3} showBackButton={true} on:back />
     <h1>Set a Date Range</h1>
-    <p>Set a start and end date for your classes (inclusive):</p>
+    <p>Set a start and end date for your classes:</p>
     <form on:submit|preventDefault={onSubmit}>
       <label>
         From
         <input type="date" bind:value={startString} use:validityMessage={getValidityMsg(start)} />
+        (inclusive)
       </label>
       <label>
         to
         <input type="date" bind:value={endString} use:validityMessage={getValidityMsg(end)} />
+        (exclusive)
       </label>
       <button type="submit" class="primary">Set</button>
     </form>
