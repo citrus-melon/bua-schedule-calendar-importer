@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
+  import { Info } from "luxon";
+  import { createEventDispatcher } from "svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
-  import { DayOfWeek, type CourseEvent } from "../types";
+  import type { CourseEvent } from "../types";
 
   export let courseEvents: CourseEvent[];
   const dispatch = createEventDispatcher<{confirm}>();
@@ -30,7 +31,7 @@
           {#each courseEvents as courseEvent}
           <tr>
             <td>{courseEvent.title}</td>
-            <td>{DayOfWeek[courseEvent.day]}</td>
+            <td>{Info.weekdays()[courseEvent.day]}</td>
             <td>{courseEvent.block}</td>
             <td>{courseEvent.startTime.toString()} - {courseEvent.endTime.toString()}</td>
             <td>{courseEvent.room ?? "N/A"}</td>
