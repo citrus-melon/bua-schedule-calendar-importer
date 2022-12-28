@@ -2,25 +2,21 @@ import type { Interval } from "luxon";
 import type { CourseEvent } from "./types";
 
 const formatEvent = (event: CourseEvent, dateRange: Interval): gapi.client.calendar.EventInput => {
-    const start = new Date(dateRange.start);
-    while (start.getDay() !== event.day) start.setDate(start.getDate() + 1);
-    start.setHours(event.startTime.hours);
-    start.setMinutes(event.startTime.minutes);
+    let start = dateRange.start.set({ hour: event.startTime.hours, minute: event.startTime.minutes });
+    while (start.weekday !== event.day) start = start.plus({ days: 1 });
 
-    const end = new Date(start);
-    end.setHours(event.endTime.hours);
-    end.setHours(event.endTime.minutes);
+    const end = start.set({ hour: event.endTime.hours, minute: event.endTime.minutes });
 
     return {
         start: {
-            dateTime: start.toISOString(),
+            dateTime: start.toISO(),
             timeZone: "America/New_York"
         },
         end: {
-            dateTime: end.toISOString(),
+            dateTime: end.toISO(),
             timeZone: "America/New_York"
         },
-        recurrence: [`RRULE:FREQ=WEEKLY;UNTIL=${dateRange.end.toISOString()}`],
+        recurrence: [`RRULE:FREQ=WEEKLY;UNTIL=${dateRange.end.toISO()}`],
         summary: `${event.title} (${event.block})`,
         description: `<strong>Block:</strong> ${event.block}
 <strong>Teacher:</teacher> ${event.teacher}
