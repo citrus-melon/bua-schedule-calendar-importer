@@ -7,6 +7,16 @@ const formatEvent = (event: CourseEvent, dateRange: Interval): gapi.client.calen
 
     const end = start.set({ hour: event.endTime.hours, minute: event.endTime.minutes });
 
+    const recurrence = [`RRULE:FREQ=WEEKLY;UNTIL=${
+        dateRange.end.toUTC().toISO({ suppressMilliseconds: true, format: "basic" })
+    }`];
+
+    const description = [
+        event.block ? `<strong>Block:</strong> ${event.block}` : null,
+        event.teacher ? `<strong>Teacher:</strong> ${event.teacher}`: null,
+        event.room ? `<strong>Room:</strong> ${event.room}` : null,
+    ].filter(Boolean).join("\n");
+
     return {
         start: {
             dateTime: start.toISO(),
@@ -16,12 +26,9 @@ const formatEvent = (event: CourseEvent, dateRange: Interval): gapi.client.calen
             dateTime: end.toISO(),
             timeZone: "America/New_York"
         },
-        recurrence: [`RRULE:FREQ=WEEKLY;UNTIL=${dateRange.end.toISO()}`],
+        recurrence,
         summary: `${event.title} (${event.block})`,
-        description: `<strong>Block:</strong> ${event.block}
-<strong>Teacher:</teacher> ${event.teacher}
-<strong>Room:</strong> ${event.room}`,
-        location: `Room ${event.room}`,
+        description,
         source: {
             title: "BUA Schedule → Google Calendar Importer",
             url: window.location.toString()

@@ -9,8 +9,8 @@
   let startString = import.meta.env.VITE_DEFAULT_START_DATE;
   let endString = import.meta.env.VITE_DEFAULT_END_DATE;
 
-  $: start = DateTime.fromISO(startString, { zone: "America/New_York" });
-  $: end = DateTime.fromISO(endString, { zone: "America/New_York" });
+  $: start = DateTime.fromISO(startString, { zone: "America/New_York" }).startOf("day");
+  $: end = DateTime.fromISO(endString, { zone: "America/New_York" }).startOf("day");
 
   const getValidityMsg = (date: DateTime) => {
     if (!date.isValid) return "Please enter a valid date";
