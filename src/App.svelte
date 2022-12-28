@@ -76,6 +76,7 @@
 {#if currentStep === Step.Import}
 <ImportPage
   {courseEvents}
+  {dateRange}
   {calendar}
   on:cancel={() => currentStep = Step.Cancelled}
   on:done={() => currentStep = Step.Done}

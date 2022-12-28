@@ -1,12 +1,30 @@
 <script lang="ts">
+  import type { Interval } from "luxon";
   import { createEventDispatcher } from "svelte";
-    import type { CalendarLike, CourseEvent } from "../types";
+  import formatEvent from "../eventFormatter";
+  import type { CalendarLike, CourseEvent } from "../types";
 
   const dispatch = createEventDispatcher<{cancel, done}>();
   export let courseEvents: CourseEvent[];
+  export let dateRange: Interval;
   export let calendar: CalendarLike;
 
   let index = 0;
+
+  const loop = async () => {
+    for (const event of courseEvents) {
+      const formattedEvent = formatEvent(event, dateRange);
+      console.log(formattedEvent);
+      await gapi.client.calendar.events.insert({
+        calendarId: calendar.id,
+        resource: formattedEvent,
+      });
+      index++;
+    }
+    dispatch('done');
+  };
+
+  loop();
 </script>
 
 <main class="content">
