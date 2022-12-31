@@ -1,17 +1,15 @@
 <script lang="ts">
   import { Info } from "luxon";
-  import { createEventDispatcher } from "svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
-  import type { CourseEvent } from "../types";
-
-  export let courseEvents: CourseEvent[];
-  const dispatch = createEventDispatcher<{confirm}>();
+  import { courseEvents, currentPage } from "../stores";
+  import DateRangePage from "./DateRangePage.svelte";
+  import UploadPage from "./UploadPage.svelte";
 </script>
 
 <div class="confirm-info-page">
   <div class="scrollable">
     <header>
-      <StepDisplay currentStep={2} showBackButton={true} on:back />
+      <StepDisplay currentStep={2} showBackButton={true} on:back={() => $currentPage = UploadPage} />
       <h1>Confirm Your Info</h1>
       <p>Make sure everything looks right!</p>
     </header>
@@ -28,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          {#each courseEvents as courseEvent}
+          {#each $courseEvents as courseEvent}
           <tr>
             <td>{courseEvent.title}</td>
             <td>{Info.weekdays()[courseEvent.day]}</td>
@@ -43,7 +41,7 @@
     </main>
   </div>
   <div class="next-footer">
-    <button class="primary" on:click={() => {dispatch("confirm")}}>Next</button>
+    <button class="primary" on:click={() => $currentPage = DateRangePage}>Next</button>
   </div>
 </div>
 

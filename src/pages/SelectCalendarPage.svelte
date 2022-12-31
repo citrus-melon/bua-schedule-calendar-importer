@@ -1,11 +1,12 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-    import LoadingOverlay from "../components/LoadingOverlay.svelte";
+  import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
   import { gapiReady } from "../googleLibraries.svelte";
-    import type { CalendarLike } from "../types";
-
-  const dispatch = createEventDispatcher<{select: CalendarLike}>();
+  import { calendar, currentPage } from "../stores";
+  import type { CalendarLike } from "../types";
+    import GoogleAuthPage from "./GoogleAuthPage.svelte";
+  import ImportPage from "./ImportPage.svelte";
 
   let loading = true;
   let calendars: gapi.client.calendar.CalendarListEntry[] = [];
@@ -30,16 +31,18 @@
         timeZone: "America/New_York",
         location: "1 University Rd, Boston, MA 02215",
       }).then((response) => {
-        dispatch("select", response.result);
+        $calendar = response.result;
+        $currentPage = ImportPage;
       });
     } else {
-      dispatch("select", selectedCalendar);
+      $calendar = selectedCalendar;
+      $currentPage = ImportPage;
     }
   }
 </script>
 
 <main class="select-calendar-page">
-  <StepDisplay currentStep={5} showBackButton={true} on:back />
+  <StepDisplay currentStep={5} showBackButton={true} on:back={() => $currentPage = GoogleAuthPage} />
   <h1>Select a Calendar</h1>
   <p>Which calendar would you like your classes added to?</p>
   <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>

@@ -5,42 +5,51 @@ import { createEventDispatcher } from "svelte";
 import parsePDF from "../pdfParser";
 import type { CourseEvent } from "../types";
 import LoadingOverlay from "../components/LoadingOverlay.svelte";
-
-const dispatch = createEventDispatcher<{parse: CourseEvent[], error: Error}>();
+import { courseEvents, currentPage } from "../stores";
+import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
+import ErrorPage from "../components/ErrorPage.svelte";
 
 let loading = false;
+let error: Error = null;
 
 const onUpload = async (e: CustomEvent<File>) => {
   loading = true;
   const file = e.detail;
   try {
-    const courseEvents = await parsePDF(file);
-    if (courseEvents.length === 0) {
+    const pdfCourseEvents = await parsePDF(file);
+    if (pdfCourseEvents.length === 0) {
       throw new Error("No course events found in PDF");
     }
-    dispatch("parse", courseEvents);
-  } catch (error) {
-    console.error(error);
-    dispatch("error", error);
+    $courseEvents = pdfCourseEvents;
+    $currentPage = ConfirmInfoPage;
+  } catch (e) {
+    error = e;
   }
+  loading = false;
 };
 </script>
 
-<div class="welcome-page">
-  <main class="content">
-    <div>
-      <StepDisplay currentStep={1} />
-      <h1>Welcome</h1>
-      <p>Upload your PDF schedule to get started!</p>
-      <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
-      <PdfUpload on:upload={onUpload} />
-    </div>
-  </main>
-  <footer class="footer">
-    <p>BUA Schedule → Google Calendar Importer by <a href="https://citrusmelon.dev">Maxwell Yu</a></p>
-  </footer>
-  {#if loading}<LoadingOverlay />{/if}
-</div>
+{#if error}
+  <ErrorPage title="Something went wrong" on:back={() => error = null}>
+    <p>Are you sure that's a BUA PDF schedule?</p>
+  </ErrorPage>
+{:else}
+  <div class="welcome-page">
+    <main class="content">
+      <div>
+        <StepDisplay currentStep={1} />
+        <h1>Welcome</h1>
+        <p>Upload your PDF schedule to get started!</p>
+        <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
+        <PdfUpload on:upload={onUpload} />
+      </div>
+    </main>
+    <footer class="footer">
+      <p>BUA Schedule → Google Calendar Importer by <a href="https://citrusmelon.dev">Maxwell Yu</a></p>
+    </footer>
+    {#if loading}<LoadingOverlay />{/if}
+  </div>
+{/if}
 
 <style>
   .welcome-page {

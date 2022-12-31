@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
-    import LoadingOverlay from "../components/LoadingOverlay.svelte";
+  import { onMount } from "svelte";
+  import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
   import { gisReady, tokenClient } from "../googleLibraries.svelte";
-
-  const dispatch = createEventDispatcher<{auth}>();
+  import { currentPage } from "../stores";
+  import DateRangePage from "./DateRangePage.svelte";
+  import SelectCalendarPage from "./SelectCalendarPage.svelte";
 
   const requestAccessToken = () => {
     //@ts-ignore
-    tokenClient.callback = () => dispatch("auth");
+    tokenClient.callback = () => $currentPage = SelectCalendarPage;
     tokenClient.requestAccessToken();
   }
 
@@ -18,7 +19,7 @@
 <main class="google-auth-page">
   {#if !$gisReady}<LoadingOverlay />{/if}
   <div>
-    <StepDisplay currentStep={4} showBackButton={true} on:back />
+    <StepDisplay currentStep={4} showBackButton={true} on:back={() => $currentPage = DateRangePage} />
     <h1>Grant Permission</h1>
     <p>We need permission to add events to your Google Calendar.</p>
     <p>Look for a Google popup and follow the instructions there!</p>

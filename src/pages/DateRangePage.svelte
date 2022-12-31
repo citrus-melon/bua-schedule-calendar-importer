@@ -1,10 +1,10 @@
 <script lang="ts">
   import { DateTime, Interval } from "luxon";
-  import { createEventDispatcher } from "svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
   import validityMessage from "../customValidity";
-
-  const dispatch = createEventDispatcher<{set: Interval}>();
+  import { currentPage, dateRange } from "../stores";
+  import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
+  import GoogleAuthPage from "./GoogleAuthPage.svelte";
 
   let startString = import.meta.env.VITE_DEFAULT_START_DATE;
   let endString = import.meta.env.VITE_DEFAULT_END_DATE;
@@ -21,13 +21,14 @@
   const onSubmit = () => {
     if (!start.isValid || !end.isValid) alert("Please enter valid dates");
     else if (start > end) alert("Start date must be before end date");
-    else dispatch("set", Interval.fromDateTimes(start, end));
+    $dateRange = Interval.fromDateTimes(start, end);
+    $currentPage = GoogleAuthPage;
   }
 </script>
 
 <main>
   <div>
-    <StepDisplay currentStep={3} showBackButton={true} on:back />
+    <StepDisplay currentStep={3} showBackButton={true} on:back={() => $currentPage = ConfirmInfoPage} />
     <h1>Set a Date Range</h1>
     <p>Set a start and end date for your classes:</p>
     <form on:submit|preventDefault={onSubmit}>
