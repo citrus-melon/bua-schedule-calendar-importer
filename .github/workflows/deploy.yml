@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Build
-        run: yarn build --base ${{ steps.setup-pages.base_path }}/
+        run: yarn build --base ${{ steps.setup-pages.outputs.base_path }}/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
