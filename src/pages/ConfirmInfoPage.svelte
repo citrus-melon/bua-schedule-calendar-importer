@@ -17,7 +17,7 @@
       <table>
         <thead>
           <tr>
-            <th>Course</th>
+            <th>Name</th>
             <th>Day</th>
             <th>Block</th>
             <th>Time</th>
