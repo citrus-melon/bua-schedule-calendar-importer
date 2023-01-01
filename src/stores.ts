@@ -7,3 +7,4 @@ export const currentPage = writable<ComponentType>();
 export const courseEvents = writable<CourseEvent[]>([]);
 export const dateRange = writable<Interval>();
 export const calendar = writable<CalendarLike>();
+export const failedEvents = writable<CourseEvent[]>([]);

@@ -1,19 +1,27 @@
 <script lang="ts">
-  import formatEvent from "../eventFormatter";
-  import { calendar, courseEvents, currentPage, dateRange } from "../stores";
+  import ErrorMessage from "../components/ErrorMessage.svelte";
+import formatEvent from "../eventFormatter";
+  import { calendar, courseEvents, currentPage, dateRange, failedEvents } from "../stores";
   import CancelledPage from "./CancelledPage.svelte";
   import DonePage from "./DonePage.svelte";
 
   let index = 0;
+  $failedEvents = [];
 
   const loop = async () => {
     for (const event of $courseEvents) {
-      const formattedEvent = formatEvent(event, $dateRange);
-      console.log(formattedEvent);
-      await gapi.client.calendar.events.insert({
-        calendarId: $calendar.id,
-        resource: formattedEvent,
-      });
+      try {
+        const formattedEvent = formatEvent(event, $dateRange);
+        console.log(formattedEvent);
+        await gapi.client.calendar.events.insert({
+          calendarId: $calendar.id,
+          resource: formattedEvent,
+        });
+      } catch (e) {
+        console.error(e);
+        $failedEvents.push(event);
+        $failedEvents = $failedEvents;
+      }
       index++;
     }
     $currentPage = DonePage;
@@ -31,6 +39,12 @@
       <span>{index}/{$courseEvents.length} ({Math.round(index/$courseEvents.length*100)}%)</span>
       <button on:click={() => $currentPage = CancelledPage}>Cancel</button>
     </div>
+    {#if $failedEvents.length > 0}
+      <p><ErrorMessage>
+        Failed to import events:
+        {$failedEvents.map(event => event.title).join(", ")}
+      </ErrorMessage></p>
+    {/if}
   </div>
 </main>
 
