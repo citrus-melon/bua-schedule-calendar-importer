@@ -66,27 +66,29 @@ import LoadingOverlay from "../components/LoadingOverlay.svelte";
       <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>
     </div>
     
-    <label class="option" class:selected={selectedCalendar === null}>
-      <input type="radio" bind:group={selectedCalendar} value={null} name="calendar" checked>
-      Create New
-    </label>
-    <div class="create-new-options">
-      <label>
-        Name:
-        <input type="text" bind:value={newCalendarName} placeholder="Classes">
+    <form on:submit|preventDefault={confirm}>
+      <label class="option" class:selected={selectedCalendar === null}>
+        <input type="radio" name="calendar" bind:group={selectedCalendar} value={null} checked>
+        Create New
       </label>
-    </div>
+      <div class="create-new-options">
+        <label>
+          Name:
+          <input type="text" bind:value={newCalendarName} placeholder="Classes">
+        </label>
+      </div>
+  
+      {#each calendars as calendar}
+        <label class="option" class:selected={selectedCalendar === calendar}>
+          <input type="radio" name="calendar" bind:group={selectedCalendar} value={calendar}>
+          {calendar.summary}
+        </label>
+      {/each}
 
-    {#each calendars as calendar}
-      <label class="option" class:selected={selectedCalendar === calendar}>
-        <input type="radio" bind:group={selectedCalendar} value={calendar}>
-        {calendar.summary}
-      </label>
-    {/each}
-
-    <div class="button-footer">
-      <button class="primary" on:click={confirm}>Import!</button>
-    </div>
+      <div class="button-footer">
+        <button type="submit" class="primary">Import!</button>
+      </div>
+    </form>
 
     {#if loading}
       <LoadingOverlay />
