@@ -28,7 +28,7 @@
     <p>Adding your classes to calendar <strong>{$calendar.summary}</strong>...</p>
     <progress value={index} max={$courseEvents.length}></progress>
     <div class="below-progress">
-      <span>{Math.round(index/$courseEvents.length*100)}% ({index}/{$courseEvents.length})</span>
+      <span>{index}/{$courseEvents.length} ({Math.round(index/$courseEvents.length*100)}%)</span>
       <button on:click={() => $currentPage = CancelledPage}>Cancel</button>
     </div>
   </div>
