@@ -5,7 +5,7 @@ import parsePDF from "../pdfParser";
 import LoadingOverlay from "../components/LoadingOverlay.svelte";
 import { courseEvents, currentPage } from "../stores";
 import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
-import ErrorPage from "../components/ErrorPage.svelte";
+import ErrorOverlay from "../components/ErrorOverlay.svelte";
 import { scale } from "svelte/transition";
 
 let loading = false;
@@ -29,11 +29,9 @@ const onUpload = async (e: CustomEvent<File>) => {
 </script>
 
 {#if error}
-<div class="error-wrapper" transition:scale={{ start: 0.9 }}>
-  <ErrorPage title="Something went wrong" on:back={() => error = null}>
+  <ErrorOverlay on:back={() => error = null}>
     <p>Are you sure that's a BUA PDF schedule?</p>
-  </ErrorPage>
-</div>
+  </ErrorOverlay>
 {:else}
   <div class="welcome-page">
     <main class="content">
@@ -73,13 +71,5 @@ const onUpload = async (e: CustomEvent<File>) => {
 
   .instructions {
     margin-bottom: 2em;
-  }
-
-  .error-wrapper {
-    background: var(--background);
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
   }
 </style>
