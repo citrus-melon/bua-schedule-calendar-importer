@@ -32,6 +32,8 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build --base ${{ steps.setup-pages.outputs.base_path }}/
+        env:
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
