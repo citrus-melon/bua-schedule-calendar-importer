@@ -42,8 +42,10 @@
 <main class="select-calendar-page">
   <StepDisplay currentStep={5} showBackButton={true} on:back={() => $currentPage = GoogleAuthPage} />
   <h1>Select a Calendar</h1>
-  <p>Which calendar would you like your classes added to?</p>
-  <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>
+  <div class="instructions">
+    <p>Which calendar would you like your classes added to?</p>
+    <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>
+  </div>
   
   <label class="option" class:selected={selectedCalendar === null}>
     <input type="radio" bind:group={selectedCalendar} value={null} name="calendar" checked>
@@ -76,6 +78,10 @@
   .select-calendar-page {
     margin: auto;
     max-width: 60em;
+  }
+
+  .instructions {
+    margin-bottom: 2em;
   }
 
   .create-new-options {

@@ -54,6 +54,14 @@
     place-items: center;
   }
 
+  label {
+    display: inline-block;
+  }
+
+  input {
+    margin: 0.25em 0;
+  }
+
   button {
     display: block;
     margin-top: 1em;

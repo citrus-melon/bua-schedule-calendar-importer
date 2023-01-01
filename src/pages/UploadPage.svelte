@@ -40,8 +40,10 @@ const onUpload = async (e: CustomEvent<File>) => {
       <div>
         <StepDisplay currentStep={1} />
         <h1>Welcome</h1>
-        <p>Upload your PDF schedule to get started!</p>
-        <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
+        <div class="instructions">
+          <p>Upload your PDF schedule to get started!</p>
+          <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
+        </div>
         <PdfUpload on:upload={onUpload} />
       </div>
     </main>
@@ -67,6 +69,10 @@ const onUpload = async (e: CustomEvent<File>) => {
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .instructions {
+    margin-bottom: 2em;
   }
 
   .error-wrapper {
