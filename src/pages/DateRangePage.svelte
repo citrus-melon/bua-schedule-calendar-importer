@@ -6,8 +6,8 @@
   import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
   import GoogleAuthPage from "./GoogleAuthPage.svelte";
 
-  let startString = import.meta.env.VITE_DEFAULT_START_DATE;
-  let endString = import.meta.env.VITE_DEFAULT_END_DATE;
+  let startString = $dateRange.start.toISODate();
+  let endString = $dateRange.end.toISODate();
 
   $: start = DateTime.fromISO(startString, { zone: "America/New_York" }).startOf("day");
   $: end = DateTime.fromISO(endString, { zone: "America/New_York" }).startOf("day");
