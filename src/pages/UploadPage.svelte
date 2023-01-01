@@ -1,9 +1,7 @@
 <script lang="ts">
 import StepDisplay from "../components/StepDisplay.svelte";
 import PdfUpload from "../components/PdfUpload.svelte";
-import { createEventDispatcher } from "svelte";
 import parsePDF from "../pdfParser";
-import type { CourseEvent } from "../types";
 import LoadingOverlay from "../components/LoadingOverlay.svelte";
 import { courseEvents, currentPage } from "../stores";
 import ConfirmInfoPage from "./ConfirmInfoPage.svelte";

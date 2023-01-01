@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
   import { gapiReady } from "../googleLibraries.svelte";
   import { calendar, currentPage } from "../stores";
-  import type { CalendarLike } from "../types";
-    import GoogleAuthPage from "./GoogleAuthPage.svelte";
+  import GoogleAuthPage from "./GoogleAuthPage.svelte";
   import ImportPage from "./ImportPage.svelte";
 
   let loading = true;
