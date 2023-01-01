@@ -1,5 +1,6 @@
 <script lang="ts">
-  import LoadingOverlay from "../components/LoadingOverlay.svelte";
+  import ErrorOverlay from "../components/ErrorOverlay.svelte";
+import LoadingOverlay from "../components/LoadingOverlay.svelte";
   import StepDisplay from "../components/StepDisplay.svelte";
   import { gapiReady } from "../googleLibraries.svelte";
   import { calendar, currentPage } from "../stores";
@@ -7,16 +8,21 @@
   import ImportPage from "./ImportPage.svelte";
 
   let loading = true;
+  let error: "list" | "create" = null;
   let calendars: gapi.client.calendar.CalendarListEntry[] = [];
   let selectedCalendar: gapi.client.calendar.CalendarListEntry = null;
   let newCalendarName = "Classes";
 
-  $: if ($gapiReady) {
+  $: if ($gapiReady && error === null) {
     gapi.client.calendar.calendarList.list().then((response) => {
       calendars = response.result.items.filter(
         (calendar) => calendar.accessRole === "writer" || calendar.accessRole === "owner"
       );
-      loading = false;
+      loading = false
+    }).catch((e) => {
+      console.error(e);
+      error = "list";
+      loading = false
     });
   }
 
@@ -31,6 +37,10 @@
       }).then((response) => {
         $calendar = response.result;
         $currentPage = ImportPage;
+      }).catch((e) => {
+        console.error(e);
+        error = "create";
+        loading = false;
       });
     } else {
       $calendar = selectedCalendar;
@@ -39,40 +49,50 @@
   }
 </script>
 
-<main class="select-calendar-page">
-  <StepDisplay currentStep={5} showBackButton={true} on:back={() => $currentPage = GoogleAuthPage} />
-  <h1>Select a Calendar</h1>
-  <div class="instructions">
-    <p>Which calendar would you like your classes added to?</p>
-    <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>
-  </div>
-  
-  <label class="option" class:selected={selectedCalendar === null}>
-    <input type="radio" bind:group={selectedCalendar} value={null} name="calendar" checked>
-    Create New
-  </label>
-  <div class="create-new-options">
-    <label>
-      Name:
-      <input type="text" bind:value={newCalendarName} placeholder="Classes">
+{#if error === "list"}
+  <ErrorOverlay buttonLabel="Try Again" on:back={() => error = null}>
+    <p>Failed to load calendars.</p>
+  </ErrorOverlay>
+{:else if error === "create"}
+  <ErrorOverlay on:back={() => error = null}>
+    <p>Failed to create calendar.</p>
+  </ErrorOverlay>
+{:else}
+  <main class="select-calendar-page">
+    <StepDisplay currentStep={5} showBackButton={true} on:back={() => $currentPage = GoogleAuthPage} />
+    <h1>Select a Calendar</h1>
+    <div class="instructions">
+      <p>Which calendar would you like your classes added to?</p>
+      <p>I recommend creating a new calendar so that you will be able to manage your classes (show/hide, change color) seperately from your other events.</p>
+    </div>
+    
+    <label class="option" class:selected={selectedCalendar === null}>
+      <input type="radio" bind:group={selectedCalendar} value={null} name="calendar" checked>
+      Create New
     </label>
-  </div>
+    <div class="create-new-options">
+      <label>
+        Name:
+        <input type="text" bind:value={newCalendarName} placeholder="Classes">
+      </label>
+    </div>
 
-  {#each calendars as calendar}
-    <label class="option" class:selected={selectedCalendar === calendar}>
-      <input type="radio" bind:group={selectedCalendar} value={calendar}>
-      {calendar.summary}
-    </label>
-  {/each}
+    {#each calendars as calendar}
+      <label class="option" class:selected={selectedCalendar === calendar}>
+        <input type="radio" bind:group={selectedCalendar} value={calendar}>
+        {calendar.summary}
+      </label>
+    {/each}
 
-  <div class="button-footer">
-    <button class="primary" on:click={confirm}>Import!</button>
-  </div>
+    <div class="button-footer">
+      <button class="primary" on:click={confirm}>Import!</button>
+    </div>
 
-  {#if loading}
-    <LoadingOverlay />
-  {/if}
-</main>
+    {#if loading}
+      <LoadingOverlay />
+    {/if}
+  </main>
+{/if}
 
 <style>
   .select-calendar-page {
