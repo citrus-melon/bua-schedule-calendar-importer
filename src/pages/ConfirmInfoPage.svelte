@@ -29,7 +29,7 @@
           {#each $courseEvents as courseEvent}
           <tr>
             <td>{courseEvent.title}</td>
-            <td>{Info.weekdays()[courseEvent.day]}</td>
+            <td>{Info.weekdays()[courseEvent.day - 1]}</td>
             <td>{courseEvent.block}</td>
             <td>{courseEvent.startTime.toString()} - {courseEvent.endTime.toString()}</td>
             <td>{courseEvent.room ?? "N/A"}</td>
