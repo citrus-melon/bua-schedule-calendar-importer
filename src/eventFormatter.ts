@@ -28,6 +28,7 @@ const formatEvent = (event: CourseEvent, dateRange: Interval): gapi.client.calen
         },
         recurrence,
         summary: `${event.title} (${event.block})`,
+        location: event.room,
         description,
         source: {
             title: "BUA Schedule → Google Calendar Importer",
