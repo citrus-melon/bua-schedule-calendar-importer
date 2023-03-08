@@ -2,7 +2,7 @@
   import { onDestroy, onMount } from "svelte";
     import ErrorPage from "../lib/components/ErrorOverlay.svelte";
   import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
-  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import StepCountNav from "../lib/components/StepCountNav.svelte";
   import { gisReady, tokenClient } from "../lib/googleLibraries.svelte";
   import { currentPage } from "../stores";
   import DateRangePage from "./DateRangePage.svelte";
@@ -37,7 +37,7 @@
   <main class="google-auth-page">
     {#if !$gisReady}<LoadingOverlay />{/if}
     <div>
-      <StepDisplay currentStep={4} showBackButton={true} on:back={() => $currentPage = DateRangePage} />
+      <StepCountNav currentStep={4} on:back={() => $currentPage = DateRangePage} />
       <h1>Grant Permission</h1>
       <p>We need permission to add events to your Google Calendar.</p>
       <p>Look for a Google popup and follow the instructions there!</p>

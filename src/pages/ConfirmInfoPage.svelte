@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Info } from "luxon";
-  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import StepCountNav from "../lib/components/StepCountNav.svelte";
   import { courseEvents, currentPage } from "../stores";
   import DateRangePage from "./DateRangePage.svelte";
   import UploadPage from "./UploadPage.svelte";
@@ -9,7 +9,7 @@
 <div class="confirm-info-page">
   <div class="scrollable">
     <header>
-      <StepDisplay currentStep={2} showBackButton={true} on:back={() => $currentPage = UploadPage} />
+      <StepCountNav currentStep={2} on:back={() => $currentPage = UploadPage} />
       <h1>Confirm Your Info</h1>
       <p>Make sure everything looks right!</p>
     </header>

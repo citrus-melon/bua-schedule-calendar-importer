@@ -1,7 +1,7 @@
 <script lang="ts">
   import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
 import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
-  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import StepCountNav from "../lib/components/StepCountNav.svelte";
   import { gapiReady } from "../lib/googleLibraries.svelte";
   import { calendar, currentPage } from "../stores";
   import GoogleAuthPage from "./GoogleAuthPage.svelte";
@@ -59,7 +59,7 @@ import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
   </ErrorOverlay>
 {:else}
   <main class="select-calendar-page">
-    <StepDisplay currentStep={5} showBackButton={true} on:back={() => $currentPage = GoogleAuthPage} />
+    <StepCountNav currentStep={5} on:back={() => $currentPage = GoogleAuthPage} />
     <h1>Select a Calendar</h1>
     <div class="instructions">
       <p>Which calendar would you like your classes added to?</p>

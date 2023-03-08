@@ -1,5 +1,5 @@
 <script lang="ts">
-import StepDisplay from "../lib/components/StepDisplay.svelte";
+import StepCountNav from "../lib/components/StepCountNav.svelte";
 import PdfUpload from "../lib/components/PdfUpload.svelte";
 import parsePDF from "../lib/pdfParser";
 import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
@@ -37,7 +37,7 @@ const onUpload = async (e: CustomEvent<File>) => {
   <div class="welcome-page">
     <main class="content">
       <div>
-        <StepDisplay currentStep={1} />
+        <StepCountNav currentStep={1} showBackButton={false} />
         <h1>Welcome</h1>
         <div class="instructions">
           <p>Upload your PDF schedule to get started!</p>

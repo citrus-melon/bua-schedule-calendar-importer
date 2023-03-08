@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DateTime, Interval } from "luxon";
-  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import StepCountNav from "../lib/components/StepCountNav.svelte";
   import validityMessage from "../lib/customValidity";
   import { currentPage, dateRange } from "../stores";
   import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
@@ -28,7 +28,7 @@
 
 <main>
   <div>
-    <StepDisplay currentStep={3} showBackButton={true} on:back={() => $currentPage = ConfirmInfoPage} />
+    <StepCountNav currentStep={3} on:back={() => $currentPage = ConfirmInfoPage} />
     <h1>Set a Date Range</h1>
     <p>Set a start and end date for your classes:</p>
     <form on:submit|preventDefault={onSubmit}>
