@@ -1,5 +1,6 @@
 import * as pdfjs from "pdfjs-dist";
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
+import { minAMHour } from "./config";
 import { DayOfWeek, Time, type CourseEvent } from "./types";
 
 const COLUMNS = [
@@ -45,9 +46,9 @@ const parsePDF = async (file: File) => {
       consumedItems[i] = true;
 
       let startTime = new Time(Number(timeRegexResult[1]), Number(timeRegexResult[2]));
-      if (startTime.hours < 6) startTime = new Time(startTime.hours + 12, startTime.minutes);
+      if (startTime.hours < minAMHour) startTime = new Time(startTime.hours + 12, startTime.minutes);
       let endTime = new Time(Number(timeRegexResult[3]), Number(timeRegexResult[4]));
-      if (endTime.hours < 6) endTime = new Time(endTime.hours + 12, endTime.minutes);
+      if (endTime.hours < minAMHour) endTime = new Time(endTime.hours + 12, endTime.minutes);
 
       const day = COLUMNS.find(
         (column) => column.x <= item.transform[4]
