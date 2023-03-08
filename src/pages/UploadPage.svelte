@@ -22,6 +22,7 @@ const onUpload = async (e: CustomEvent<File>) => {
     $courseEvents = pdfCourseEvents;
     $currentPage = ConfirmInfoPage;
   } catch (e) {
+    console.error(e);
     error = e;
   }
   loading = false;

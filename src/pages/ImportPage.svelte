@@ -12,7 +12,6 @@ import formatEvent from "../eventFormatter";
     for (const event of $courseEvents) {
       try {
         const formattedEvent = formatEvent(event, $dateRange);
-        console.log(formattedEvent);
         await gapi.client.calendar.events.insert({
           calendarId: $calendar.id,
           resource: formattedEvent,
