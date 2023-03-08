@@ -12,7 +12,6 @@ const COLUMNS = [
 
 const timeStringRegex = /^(\d{1,2}):(\d{2}) - (\d{1,2}):(\d{2})$/; // 8:00 - 9:30
 const roomStringRegex = /^[A-Z0-9]+$/; // 205, ASM
-const teacherStringRegex = /^(?:Dr|Mr|Mrs|Ms|Mx)\. /; // Dr. Jane Doe
 
 type pdfCourseEvent = CourseEvent & { pdfIndex: number };
 
@@ -84,16 +83,14 @@ const parsePDF = async (file: File) => {
       i++
     ) {
       const item = pdfContent[i];
-      if (item.str.trim().length === 0) continue;
-
-      if (teacherStringRegex.test(item.str)) {
-        courseEvent.teacher = item.str;
+      if (item.str.trim().length === 0) {
+        i++;
+        if (i < pdfContent.length && !consumedItems[i]) {
+          courseEvent.teacher = pdfContent[i].str;
+        }
         break;
-      } else {
-        courseEvent.title += " " + item.str;
-      }
-
-      i++;
+      };
+      courseEvent.title += " " + item.str;
     }
   }
 
