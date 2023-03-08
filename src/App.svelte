@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cubicIn, quadIn } from "svelte/easing";
   import { fly } from "svelte/transition";
-  import GoogleLibraries from "./googleLibraries.svelte";
+  import GoogleLibraries from "./lib/googleLibraries.svelte";
   import UploadPage from "./pages/UploadPage.svelte";
   import { currentPage } from "./stores";
 

@@ -1,6 +1,6 @@
 <script>
-  import ErrorMessage from "../components/ErrorMessage.svelte";
-import MessagePage from "../components/MessagePage.svelte";
+  import ErrorMessage from "../lib/components/ErrorMessage.svelte";
+import MessagePage from "../lib/components/MessagePage.svelte";
   import { calendar, currentPage, failedEvents } from "../stores";
   import UploadPage from "./UploadPage.svelte";
 </script>

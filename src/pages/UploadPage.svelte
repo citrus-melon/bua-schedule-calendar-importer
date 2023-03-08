@@ -1,11 +1,11 @@
 <script lang="ts">
-import StepDisplay from "../components/StepDisplay.svelte";
-import PdfUpload from "../components/PdfUpload.svelte";
-import parsePDF from "../pdfParser";
-import LoadingOverlay from "../components/LoadingOverlay.svelte";
+import StepDisplay from "../lib/components/StepDisplay.svelte";
+import PdfUpload from "../lib/components/PdfUpload.svelte";
+import parsePDF from "../lib/pdfParser";
+import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
 import { courseEvents, currentPage } from "../stores";
 import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
-import ErrorOverlay from "../components/ErrorOverlay.svelte";
+import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
 import { scale } from "svelte/transition";
 
 let loading = false;

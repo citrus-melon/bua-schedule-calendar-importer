@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Info } from "luxon";
-  import StepDisplay from "../components/StepDisplay.svelte";
+  import StepDisplay from "../lib/components/StepDisplay.svelte";
   import { courseEvents, currentPage } from "../stores";
   import DateRangePage from "./DateRangePage.svelte";
   import UploadPage from "./UploadPage.svelte";

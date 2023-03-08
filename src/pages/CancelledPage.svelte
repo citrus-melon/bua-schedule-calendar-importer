@@ -1,5 +1,5 @@
 <script>
-  import MessagePage from "../components/MessagePage.svelte";
+  import MessagePage from "../lib/components/MessagePage.svelte";
   import { currentPage } from "../stores";
   import UploadPage from "./UploadPage.svelte";
 </script>

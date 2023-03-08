@@ -1,7 +1,7 @@
 <script lang="ts">
   import { DateTime, Interval } from "luxon";
-  import StepDisplay from "../components/StepDisplay.svelte";
-  import validityMessage from "../customValidity";
+  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import validityMessage from "../lib/customValidity";
   import { currentPage, dateRange } from "../stores";
   import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
   import GoogleAuthPage from "./GoogleAuthPage.svelte";

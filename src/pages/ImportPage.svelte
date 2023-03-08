@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ErrorMessage from "../components/ErrorMessage.svelte";
-import formatEvent from "../eventFormatter";
+  import ErrorMessage from "../lib/components/ErrorMessage.svelte";
+import formatEvent from "../lib/eventFormatter";
   import { calendar, courseEvents, currentPage, dateRange, failedEvents } from "../stores";
   import CancelledPage from "./CancelledPage.svelte";
   import DonePage from "./DonePage.svelte";

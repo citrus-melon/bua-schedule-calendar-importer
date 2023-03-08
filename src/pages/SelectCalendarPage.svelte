@@ -1,8 +1,8 @@
 <script lang="ts">
-  import ErrorOverlay from "../components/ErrorOverlay.svelte";
-import LoadingOverlay from "../components/LoadingOverlay.svelte";
-  import StepDisplay from "../components/StepDisplay.svelte";
-  import { gapiReady } from "../googleLibraries.svelte";
+  import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
+import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
+  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import { gapiReady } from "../lib/googleLibraries.svelte";
   import { calendar, currentPage } from "../stores";
   import GoogleAuthPage from "./GoogleAuthPage.svelte";
   import ImportPage from "./ImportPage.svelte";

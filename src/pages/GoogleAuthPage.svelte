@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-    import ErrorPage from "../components/ErrorOverlay.svelte";
-  import LoadingOverlay from "../components/LoadingOverlay.svelte";
-  import StepDisplay from "../components/StepDisplay.svelte";
-  import { gisReady, tokenClient } from "../googleLibraries.svelte";
+    import ErrorPage from "../lib/components/ErrorOverlay.svelte";
+  import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
+  import StepDisplay from "../lib/components/StepDisplay.svelte";
+  import { gisReady, tokenClient } from "../lib/googleLibraries.svelte";
   import { currentPage } from "../stores";
   import DateRangePage from "./DateRangePage.svelte";
   import SelectCalendarPage from "./SelectCalendarPage.svelte";

@@ -1,6 +1,6 @@
 import * as pdfjs from "pdfjs-dist";
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
-import { minAMHour } from "./config";
+import { minAMHour } from "../config";
 import { DayOfWeek, Time, type CourseEvent } from "./types";
 
 const COLUMNS = [
