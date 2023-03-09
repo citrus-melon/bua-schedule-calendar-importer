@@ -1,32 +1,31 @@
 <script lang="ts">
-import StepCountNav from "../lib/components/StepCountNav.svelte";
-import PdfUpload from "../lib/components/PdfUpload.svelte";
-import parsePDF from "../lib/pdfParser";
-import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
-import { courseEvents, currentPage } from "../stores";
-import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
-import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
-import { scale } from "svelte/transition";
+  import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
+  import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
+  import PdfUpload from "../lib/components/PdfUpload.svelte";
+  import StepCountNav from "../lib/components/StepCountNav.svelte";
+  import parsePDF from "../lib/pdfParser";
+  import { courseEvents, currentPage } from "../stores";
+  import ConfirmInfoPage from "./ConfirmInfoPage.svelte";
 
-let loading = false;
-let error: Error = null;
+  let loading = false;
+  let error: Error = null;
 
-const onUpload = async (e: CustomEvent<File>) => {
-  loading = true;
-  const file = e.detail;
-  try {
-    const pdfCourseEvents = await parsePDF(file);
-    if (pdfCourseEvents.length === 0) {
-      throw new Error("No course events found in PDF");
+  const onUpload = async (e: CustomEvent<File>) => {
+    loading = true;
+    const file = e.detail;
+    try {
+      const pdfCourseEvents = await parsePDF(file);
+      if (pdfCourseEvents.length === 0) {
+        throw new Error("No course events found in PDF");
+      }
+      $courseEvents = pdfCourseEvents;
+      $currentPage = ConfirmInfoPage;
+    } catch (e) {
+      console.error(e);
+      error = e;
     }
-    $courseEvents = pdfCourseEvents;
-    $currentPage = ConfirmInfoPage;
-  } catch (e) {
-    console.error(e);
-    error = e;
-  }
-  loading = false;
-};
+    loading = false;
+  };
 </script>
 
 {#if error}

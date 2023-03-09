@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { scale } from "svelte/transition";
+  import { scale } from "svelte/transition";
   import MessagePage from "./MessagePage.svelte";
 
   export let title: string = "Something went wrong!";

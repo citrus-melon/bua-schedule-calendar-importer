@@ -1,6 +1,6 @@
 <script lang="ts">
   import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
-import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
+  import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
   import StepCountNav from "../lib/components/StepCountNav.svelte";
   import { gapiReady } from "../lib/googleLibraries.svelte";
   import { calendar, currentPage } from "../stores";

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-    import ErrorPage from "../lib/components/ErrorOverlay.svelte";
+  import ErrorPage from "../lib/components/ErrorOverlay.svelte";
   import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
   import StepCountNav from "../lib/components/StepCountNav.svelte";
   import { gisReady, tokenClient } from "../lib/googleLibraries.svelte";

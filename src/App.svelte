@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { cubicIn, quadIn } from "svelte/easing";
+  import { quadIn } from "svelte/easing";
   import { fly } from "svelte/transition";
   import GoogleLibraries from "./lib/googleLibraries.svelte";
   import PrivacyPage from "./pages/PrivacyPage.svelte";
