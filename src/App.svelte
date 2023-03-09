@@ -2,10 +2,16 @@
     import { cubicIn, quadIn } from "svelte/easing";
   import { fly } from "svelte/transition";
   import GoogleLibraries from "./lib/googleLibraries.svelte";
+  import PrivacyPage from "./pages/PrivacyPage.svelte";
   import UploadPage from "./pages/UploadPage.svelte";
   import { currentPage } from "./stores";
-
-  $currentPage = UploadPage;
+  
+  const routeHash = () => {
+    if (window.location.hash === "#privacy") $currentPage = PrivacyPage;
+    else $currentPage = UploadPage;
+  }
+  routeHash();
+  window.addEventListener("hashchange", routeHash);
 </script>
 
 <GoogleLibraries />

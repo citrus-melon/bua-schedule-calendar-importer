@@ -47,7 +47,7 @@ const onUpload = async (e: CustomEvent<File>) => {
       </div>
     </main>
     <footer class="footer">
-      <p>BUA Schedule → Google Calendar Importer by <a href="https://citrusmelon.dev">Maxwell Yu</a></p>
+      <p>BUA Schedule → Google Calendar Importer by <a href="https://citrusmelon.dev">Maxwell Yu</a> | <a href="#privacy">Privacy</a></p>
     </footer>
     {#if loading}<LoadingOverlay />{/if}
   </div>
