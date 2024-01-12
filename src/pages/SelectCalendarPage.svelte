@@ -70,7 +70,7 @@ ${window.location.toString()}`,
     <form on:submit|preventDefault={confirm}>
       <label class="option" class:selected={selectedCalendar === null}>
         <input type="radio" name="calendar" bind:group={selectedCalendar} value={null} checked>
-        Create New
+        Create New (Recommended)
       </label>
       <div class="create-new-options">
         <label>
