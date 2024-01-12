@@ -31,7 +31,8 @@
       loading = true;
       gapi.client.calendar.calendars.insert({
         summary: newCalendarName || "Classes",
-        description: "Created with Maxwell Yu's BUA Schedule → Google Calendar Importer",
+        description: `Created with BUA Schedule → Google Calendar Importer by Maxwell Yu
+${window.location.toString()}`,
         timeZone: "America/New_York",
         location: "1 University Rd, Boston, MA 02215",
       }).then((response) => {
