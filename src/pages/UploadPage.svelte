@@ -31,7 +31,8 @@
 {#if error}
   <ErrorOverlay on:back={() => error = null}>
     <pre>{error.message}</pre>
-    <p>Are you sure that's a BUA PDF schedule?</p>
+    <p>Are you sure that's a BUA schedule?</p>
+    <p>Make sure you clicked the "Print to PDF" button in the top right of the page, not your browser's print function.</p>
   </ErrorOverlay>
 {:else}
   <div class="welcome-page">
@@ -40,8 +41,9 @@
         <StepCountNav currentStep={1} showBackButton={false} />
         <h1>Welcome</h1>
         <div class="instructions">
-          <p>Upload your PDF schedule to get started!</p>
-          <p>You can find it in the <a href="https://buacademyportal.goradius.com/buacademy#/documents" target="_blank">student portal</a>.</p>
+          <p>Open your schedule to get started!</p>
+          <p>You can find it in the <a href="https://portals.veracross.com/buacademy/student/student/overview" target="_blank">student portal</a> under "Reports".</p>
+          <p>Click on "PDF" in the top right of your schedule to download it, then open it here.</p>
         </div>
         <PdfUpload on:upload={onUpload} />
       </div>
@@ -72,5 +74,6 @@
 
   .instructions {
     margin-bottom: 2em;
+    max-width: 25em;
   }
 </style>
