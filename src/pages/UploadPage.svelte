@@ -30,6 +30,7 @@
 
 {#if error}
   <ErrorOverlay on:back={() => error = null}>
+    <pre>{error.message}</pre>
     <p>Are you sure that's a BUA PDF schedule?</p>
   </ErrorOverlay>
 {:else}
