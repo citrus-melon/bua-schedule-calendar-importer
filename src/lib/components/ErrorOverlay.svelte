@@ -9,7 +9,9 @@
 <div class="error-overlay" transition:scale={{ start: 0.9 }}>
   <MessagePage {title} {buttonLabel} on:back>
     <slot></slot>
-    <p>Let me know if you found a bug!</p>
+    <p>Let me know if you found a bug! Use my BU email, or <a
+      href="mailto:contact@citrusmelon.dev">contact@citrusmelon.dev</a
+    ></p>
   </MessagePage>
 </div>
 
