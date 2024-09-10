@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ErrorMessage from "../lib/components/ErrorMessage.svelte";
+  import MessageCallout from "../lib/components/MessageCallout.svelte";
   import formatEvent from "../lib/eventFormatter";
   import { calendar, courseEvents, currentPage, dateRange, failedEvents } from "../stores";
   import CancelledPage from "./CancelledPage.svelte";
@@ -39,10 +39,10 @@
       <button on:click={() => $currentPage = CancelledPage}>Cancel</button>
     </div>
     {#if $failedEvents.length > 0}
-      <p><ErrorMessage>
+      <p><MessageCallout variant="error">
         Failed to import events:
         {$failedEvents.map(event => event.title).join(", ")}
-      </ErrorMessage></p>
+      </MessageCallout></p>
     {/if}
   </div>
 </main>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ErrorMessage from "../lib/components/ErrorMessage.svelte";
+  import MessageCallout from "../lib/components/MessageCallout.svelte";
 import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
   import LoadingOverlay from "../lib/components/LoadingOverlay.svelte";
   import PdfUpload from "../lib/components/PdfUpload.svelte";
@@ -37,6 +37,9 @@ import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
   </ErrorOverlay>
 {:else}
   <div class="welcome-page">
+    <MessageCallout>
+      <strong>Update:</strong> I've resolved an issue involving courses with long titles. If you were affected, please try again now!
+    </MessageCallout>
     <main class="content">
       <div>
         <StepCountNav currentStep={1} showBackButton={false} />
