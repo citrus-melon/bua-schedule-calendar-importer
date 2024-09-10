@@ -41,11 +41,12 @@ const parsePDF = async (file: File) => {
   
   const courses: CourseEvent[] = [];
 
-  for (let i = 0; i+2 < textItems.length; i+=3) {
+  for (let i = 0; i < textItems.length;) {
     let title = '';
     let line2Parsed = null;
 
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 3 && i < textItems.length; j++) {
+      if (title) title += ' ';
       title += textItems[i].str;
       i++;
       line2Parsed = line2Regex.exec(textItems[i].str);
@@ -64,7 +65,9 @@ const parsePDF = async (file: File) => {
     )?.day;
     if (!day) throw new Error(`Invalid day (x=${textItems[i].transform[4]}) for course ${title}`);
 
-    let line3Split = textItems[i+1].str.split("-")
+    i++;
+
+    let line3Split = textItems[i].str.split("-")
       .map((str) => str.trim())
       .map((str) => str === "None" ? undefined : str)
 
@@ -77,6 +80,8 @@ const parsePDF = async (file: File) => {
       teacher: line3Split[0],
       room: line3Split[1],
     })
+    
+    i++;
   }
 
   return courses;
