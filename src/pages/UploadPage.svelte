@@ -35,14 +35,14 @@ import ErrorOverlay from "../lib/components/ErrorOverlay.svelte";
     <p>Are you sure that's a BUA schedule?</p>
     <p>Make sure you clicked the "Print to PDF" button in the top right of the page, not your browser's print function.</p>
     <ErrorMessage>
-      I'm aware of a bug involving courses with long titles, and I'm working on a fix. Please try this again tomorrow on 9/10!
+      I'm aware of a bug involving courses with long titles, and I'm working on a fix. Please try this again later today on 9/10!
     </ErrorMessage>
   </ErrorOverlay>
 {:else}
   <div class="welcome-page">
-    <ErrorMessage>
+    <!-- <ErrorMessage>
       I'm aware of a bug and am working on a fix. If you encounter it, please try again tomorrow on 9/10!
-    </ErrorMessage>
+    </ErrorMessage> -->
     <main class="content">
       <div>
         <StepCountNav currentStep={1} showBackButton={false} />

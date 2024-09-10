@@ -42,12 +42,17 @@ const parsePDF = async (file: File) => {
   const courses: CourseEvent[] = [];
 
   for (let i = 0; i+2 < textItems.length; i+=3) {
-    const line1 = textItems[i].str;
-    const line2 = textItems[i+1].str;
-    const line3 = textItems[i+2].str;
+    let title = '';
+    let line2Parsed = null;
 
-    const line2Parsed = line2Regex.exec(line2);
-    if (!line2Parsed) throw new Error(`Invalid line "${line2}" for course "${line1}"`);
+    for (let j = 0; j < 3; j++) {
+      title += textItems[i].str;
+      i++;
+      line2Parsed = line2Regex.exec(textItems[i].str);
+      if (line2Parsed) break;
+    }
+
+    if (!line2Parsed) throw new Error(`Can't find line 2 for course ${title}`);
 
     let startTime = new Time(Number(line2Parsed[1]), Number(line2Parsed[2]));
     if (startTime.hours < minAMHour) startTime = new Time(startTime.hours + 12, startTime.minutes);
@@ -57,14 +62,14 @@ const parsePDF = async (file: File) => {
     const day = COLUMNS.find(
       (column) => column.x <= textItems[i].transform[4]
     )?.day;
-    if (!day) throw new Error(`Invalid day (x=${textItems[i].transform[4]}) for course ${line1}`);
+    if (!day) throw new Error(`Invalid day (x=${textItems[i].transform[4]}) for course ${title}`);
 
-    let line3Split = line3.split("-")
+    let line3Split = textItems[i+1].str.split("-")
       .map((str) => str.trim())
       .map((str) => str === "None" ? undefined : str)
 
     courses.push({
-      title: line1,
+      title,
       startTime,
       endTime,
       day,
